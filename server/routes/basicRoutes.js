@@ -1,0 +1,1 @@
+const r=require('express').Router();const {instructors,students}=require('../controllers/simpleControllers');r.get('/instructors',instructors.list);r.post('/instructors',instructors.create);r.get('/students',students.list);r.post('/students',students.create);module.exports=r;

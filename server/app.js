@@ -1,0 +1,14 @@
+require('dotenv').config();
+const express=require('express'),cors=require('cors');
+const {sequelize}=require('./models');
+const courseRoutes=require('./routes/courseRoutes'), feedbackRoutes=require('./routes/feedbackRoutes'), evaluationRoutes=require('./routes/evaluationRoutes'), basicRoutes=require('./routes/basicRoutes');
+const app=express();
+app.use(cors()); app.use(express.json());
+app.get('/api/health',(req,res)=>res.json({status:'OK',message:'Student Feedback API is running'}));
+app.use('/api/courses',courseRoutes);
+app.use('/api/feedback-forms',feedbackRoutes);
+app.use('/api/evaluations',evaluationRoutes);
+app.use('/api',basicRoutes);
+app.use((err,req,res,next)=>{console.error(err);const status=err.name==='SequelizeValidationError'||err.name==='SequelizeUniqueConstraintError'?400:500;res.status(status).json({message:err.errors?.map(x=>x.message).join(', ')||err.message||'Server error'});});
+const PORT=process.env.PORT||5000;
+sequelize.authenticate().then(()=>app.listen(PORT,()=>console.log(`API running at http://localhost:${PORT}`))).catch(e=>{console.error('Database connection failed:',e.message);process.exit(1)});

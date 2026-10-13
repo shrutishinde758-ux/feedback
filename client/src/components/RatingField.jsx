@@ -1,0 +1,1 @@
+export default function RatingField({label,value,onChange}){return <label><span>{label}</span><select value={value} onChange={e=>onChange(Number(e.target.value))}>{[5,4,3,2,1].map(x=><option key={x} value={x}>{x} - {x===5?'Excellent':x===4?'Good':x===3?'Average':x===2?'Needs Improvement':'Poor'}</option>)}</select></label>}

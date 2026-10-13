@@ -1,0 +1,6 @@
+module.exports={async up(queryInterface, Sequelize){
+const S=Sequelize; const now={allowNull:false};
+await queryInterface.createTable('courses',{id:{type:S.INTEGER.UNSIGNED,autoIncrement:true,primaryKey:true},code:{type:S.STRING(20),allowNull:false,unique:true},name:{type:S.STRING(120),allowNull:false},semester:{type:S.STRING(30),allowNull:false},department:{type:S.STRING(100),allowNull:false},createdAt:{type:S.DATE,allowNull:false},updatedAt:{type:S.DATE,allowNull:false}});
+await queryInterface.createTable('instructors',{id:{type:S.INTEGER.UNSIGNED,autoIncrement:true,primaryKey:true},name:{type:S.STRING(120),allowNull:false},email:{type:S.STRING(150),allowNull:false,unique:true},department:{type:S.STRING(100),allowNull:false},createdAt:{type:S.DATE,allowNull:false},updatedAt:{type:S.DATE,allowNull:false}});
+await queryInterface.createTable('students',{id:{type:S.INTEGER.UNSIGNED,autoIncrement:true,primaryKey:true},rollNo:{type:S.STRING(30),allowNull:false,unique:true},name:{type:S.STRING(120),allowNull:false},email:{type:S.STRING(150),allowNull:false,unique:true},course:{type:S.STRING(120),allowNull:false},createdAt:{type:S.DATE,allowNull:false},updatedAt:{type:S.DATE,allowNull:false}});
+},async down(queryInterface){await queryInterface.dropTable('students');await queryInterface.dropTable('instructors');await queryInterface.dropTable('courses');}};

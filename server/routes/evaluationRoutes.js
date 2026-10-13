@@ -1,0 +1,1 @@
+const r=require('express').Router();const c=require('../controllers/evaluationController');r.get('/',c.list);r.get('/summary',c.summary);r.get('/filter',c.filter);r.post('/',c.create);module.exports=r;
